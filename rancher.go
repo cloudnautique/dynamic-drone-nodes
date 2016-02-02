@@ -5,26 +5,31 @@ import (
 	"github.com/rancher/go-rancher-metadata/metadata"
 )
 
-type Client struct {
-	EndpointURL string
+type RancherClient struct {
+	client *metadata.Client
 }
 
 type DynamicNodePool interface {
 	ListNodes(string) ([]*drone.Node, error)
 }
 
-func NewPoolClient(endpoint string) *Client {
-	return &Client{endpoint}
-}
-
-func (c *Client) ListNodes(nodesPath string) ([]*drone.Node, error) {
-	nodes := []*drone.Node{}
-	client, err := metadata.NewClientAndWait(c.EndpointURL)
+func NewPoolClient(endpoint string) (DynamicNodePool, error) {
+	client, err := NewRancherClient(endpoint)
 	if err != nil {
-		return nodes, err
+		return nil, err
 	}
 
-	rancherNodes, _ := client.GetServiceContainers("docker", "test")
+	return &RancherClient{client}, nil
+}
+
+func NewRancherClient(endpoint string) (*metadata.Client, error) {
+	return metadata.NewClientAndWait(endpoint)
+}
+
+func (c *RancherClient) ListNodes(nodesPath string) ([]*drone.Node, error) {
+	nodes := []*drone.Node{}
+
+	rancherNodes, _ := c.client.GetServiceContainers("docker", "test")
 	for _, rNode := range rancherNodes {
 		n := &drone.Node{
 			Addr: "tcp://" + rNode.PrimaryIp + ":2375",
