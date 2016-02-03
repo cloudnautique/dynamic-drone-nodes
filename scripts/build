@@ -27,4 +27,4 @@ get_version
 
 mkdir -p bin
 echo Building dynamic-drone-nodes
-CGO_ENABLED=0 go build  -o bin/drone-dynamic-nodes -ldflags="-w -X github.com/cloudnautique/drone-dynamic-nodes/version.VERSION=${VERSION}"
+CGO_ENABLED=0 go build  -o bin/dynamic-drone-nodes -ldflags="-w -X github.com/cloudnautique/dynamic-drone-nodes/version.VERSION=${VERSION}"
