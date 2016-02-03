@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+cd $(dirname $0)/..
+PACKAGE=./gopath/src/$(<.package)
+if [ -L "${PACKAGE}" ]; then
+    rm ${PACKAGE}
+fi
+
+if [ ! -e "${PACKAGE}" ]; then
+    mkdir -p $(dirname ${PACKAGE})
+    ln -s $(pwd) ${PACKAGE}
+fi
+
+export GOPATH="$(pwd)/Godeps/_workspace:$(pwd)/gopath"
+
+get_version()
+{
+    VERSION=$(git tag -l --contains HEAD | head -n 1)
+    if [ -z "$VERSION" ]; then
+        VERSION=$(git rev-parse --short HEAD)
+    fi
+}
+
+get_version
+
+mkdir -p bin
+echo Building dynamic-drone-nodes
+CGO_ENABLED=0 go build  -o bin/drone-dynamic-nodes -ldflags="-w -X github.com/cloudnautique/drone-dynamic-nodes/version.VERSION=${VERSION}"

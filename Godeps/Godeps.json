@@ -1,0 +1,36 @@
+{
+	"ImportPath": "github.com/cloudnautique/dynamic-drone-nodes",
+	"GoVersion": "go1.5",
+	"Deps": [
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.8.7-55-gf7f79f7",
+			"Rev": "f7f79f729e0fbe2fcc061db48a9ba0263f588252"
+		},
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "1.2.0-197-gcf1f63a",
+			"Rev": "cf1f63a7274872768d4037305d572b70b1199397"
+		},
+		{
+			"ImportPath": "github.com/drone/drone-go/drone",
+			"Rev": "daead3a9aa11fdc44d38af1dd8f21ebe5dcfafdb"
+		},
+		{
+			"ImportPath": "github.com/rancher/go-rancher-metadata/metadata",
+			"Rev": "f854893a184436a69982adc5dffa63e30f217e07"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "644ffc06205c045a7d696b9a212191615d30b77b"
+		},
+		{
+			"ImportPath": "golang.org/x/oauth2",
+			"Rev": "8a57ed94ffd43444c0879fe75701732a38afc985"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "eb2c74142fd19a79b3f237334c7384d5167b1b46"
+		}
+	]
+}
